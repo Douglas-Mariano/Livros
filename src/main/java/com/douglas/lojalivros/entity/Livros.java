@@ -26,10 +26,7 @@ public class Livros {
     @Column(nullable = false)
     private Integer capitulos;
 
-    @Column(nullable = false)
-    private String identificacao;
-
-    @Column(name = "nome_editora", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String editora;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
