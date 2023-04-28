@@ -21,6 +21,5 @@ public class AutorDTO {
     private String nome;
 
     @NotNull
-    @Size(max = 100)
     private Integer ano;
 }

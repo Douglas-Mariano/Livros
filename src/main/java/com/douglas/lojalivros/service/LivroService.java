@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Optional;
+
 @Service
 public class LivroService {
 
@@ -27,5 +29,10 @@ public class LivroService {
         Livros livroSalvo = livroRepository.save(livroParaSalvar);
         return MessageResponseDTO.builder()
                 .message("Livro criado com ID: " + livroSalvo.getId()).build();
+    }
+
+    public LivrosDTO buscarPorId(Long id) {
+        Optional<Livros> optionalLivros = livroRepository.findById(id);
+        return livrosMapper.toDTO(optionalLivros.get());
     }
 }

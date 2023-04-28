@@ -7,10 +7,7 @@ import com.douglas.lojalivros.repository.LivroRepository;
 import com.douglas.lojalivros.service.LivroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/livros")
@@ -25,6 +22,11 @@ public class LivroController {
 
     @PostMapping
     public MessageResponseDTO create(@RequestBody @Valid LivrosDTO livrosDTO){
+
         return livroService.create(livrosDTO);
+    }
+    @GetMapping("/{id}")
+    public LivrosDTO buscarPorId(@PathVariable Long id){
+        return livroService.buscarPorId(id);
     }
 }
