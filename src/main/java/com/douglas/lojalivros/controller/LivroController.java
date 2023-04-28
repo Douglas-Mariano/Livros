@@ -3,6 +3,7 @@ package com.douglas.lojalivros.controller;
 import com.douglas.lojalivros.dto.LivrosDTO;
 import com.douglas.lojalivros.dto.MessageResponseDTO;
 import com.douglas.lojalivros.entity.Livros;
+import com.douglas.lojalivros.exception.LivroNotFoundException;
 import com.douglas.lojalivros.repository.LivroRepository;
 import com.douglas.lojalivros.service.LivroService;
 import jakarta.validation.Valid;
@@ -26,7 +27,7 @@ public class LivroController {
         return livroService.create(livrosDTO);
     }
     @GetMapping("/{id}")
-    public LivrosDTO buscarPorId(@PathVariable Long id){
+    public LivrosDTO buscarPorId(@PathVariable Long id) throws LivroNotFoundException {
         return livroService.buscarPorId(id);
     }
 }

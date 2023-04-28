@@ -3,6 +3,7 @@ package com.douglas.lojalivros.service;
 import com.douglas.lojalivros.dto.LivrosDTO;
 import com.douglas.lojalivros.dto.MessageResponseDTO;
 import com.douglas.lojalivros.entity.Livros;
+import com.douglas.lojalivros.exception.LivroNotFoundException;
 import com.douglas.lojalivros.mapper.LivrosMapper;
 import com.douglas.lojalivros.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,10 @@ public class LivroService {
                 .message("Livro criado com ID: " + livroSalvo.getId()).build();
     }
 
-    public LivrosDTO buscarPorId(Long id) {
-        Optional<Livros> optionalLivros = livroRepository.findById(id);
-        return livrosMapper.toDTO(optionalLivros.get());
+    public LivrosDTO buscarPorId(Long id) throws LivroNotFoundException {
+        Livros livro = livroRepository.findById(id)
+                .orElseThrow(()-> new LivroNotFoundException(id));
+
+        return livrosMapper.toDTO(livro);
     }
 }
