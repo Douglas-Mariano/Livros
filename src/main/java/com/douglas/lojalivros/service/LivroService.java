@@ -1,7 +1,9 @@
 package com.douglas.lojalivros.service;
 
+import com.douglas.lojalivros.dto.LivrosDTO;
 import com.douglas.lojalivros.dto.MessageResponseDTO;
 import com.douglas.lojalivros.entity.Livros;
+import com.douglas.lojalivros.mapper.LivrosMapper;
 import com.douglas.lojalivros.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +14,17 @@ public class LivroService {
 
     private LivroRepository livroRepository;
 
+    private final LivrosMapper livrosMapper = LivrosMapper.INSTANCE;
+
     @Autowired
     public LivroService(LivroRepository livroRepository){
         this.livroRepository = livroRepository;
     }
 
-    public MessageResponseDTO create(Livros livro){
-        Livros livroSalvo = livroRepository.save(livro);
+    public MessageResponseDTO create(LivrosDTO livrosDTO){
+        Livros livroParaSalvar = livrosMapper.toModel(livrosDTO);
+
+        Livros livroSalvo = livroRepository.save(livroParaSalvar);
         return MessageResponseDTO.builder()
                 .message("Livro criado com ID: " + livroSalvo.getId()).build();
     }

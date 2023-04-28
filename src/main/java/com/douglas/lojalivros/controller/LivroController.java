@@ -1,9 +1,11 @@
 package com.douglas.lojalivros.controller;
 
+import com.douglas.lojalivros.dto.LivrosDTO;
 import com.douglas.lojalivros.dto.MessageResponseDTO;
 import com.douglas.lojalivros.entity.Livros;
 import com.douglas.lojalivros.repository.LivroRepository;
 import com.douglas.lojalivros.service.LivroService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +20,11 @@ public class LivroController {
 
     @Autowired
     public LivroController(LivroService livroService) {
-
         this.livroService = livroService;
     }
 
     @PostMapping
-    public MessageResponseDTO create(@RequestBody Livros livro){
-        return livroService.create(livro);
+    public MessageResponseDTO create(@RequestBody @Valid LivrosDTO livrosDTO){
+        return livroService.create(livrosDTO);
     }
 }
